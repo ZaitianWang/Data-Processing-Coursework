@@ -68,29 +68,30 @@ for k in range(3,10):
         cluster_anom.append(c[c["is_anomaly"]==True])
         data_count.append(c.shape[0])
         anom_count.append(cluster_anom[i].shape[0])
-    anom_rate = []
-    for i in range(0,k):
-        anom_rate.append(anom_count[i]/data_count[i])
-    threshold = [0.01,0.03,0.05,0.10]
+    threshold = [0.01,0.02,0.05,0.1]
     for j in range(0,len(threshold)):
         TA = 0
         FA = 0
         TN = 0
         FN = 0
         for i in range(0,k):
-            if (anom_rate[i] >= threshold[j]):
+            if (data_count[i] <= threshold[j]*train_norm.shape[0]):
                 TA = TA + anom_count[i]
                 FA = FA + (data_count[i] - anom_count[i])
             else:
                 TN = TN + (data_count[i] - anom_count[i])
                 FN = FN + anom_count[i]
-        precision = (TA)/(TA+FA)
-        recall = (TA)/(TA+FN)
+        if(TA == 0):
+            precision = 0
+            recall = 0
+        else:
+            precision = (TA)/(TA+FA)
+            recall = (TA)/(TA+FN)
         df = pd.DataFrame({"k":k,"threshold":threshold[j],"TA":TA,"FA":FA,"TN":TN,"FN":FN,"precision":precision,"recall":recall}, index=[performance.shape[0]])
         performance = performance.append(df)
 
 
-# get optimal parameters: k=5, threshold=0.05
+# get optimal parameters: k=5, threshold=0.02
 
 # In[4]:
 
@@ -119,7 +120,7 @@ test_norm_anom = test_norm[test_norm["is_anomaly"]==True]
 
 
 k = 5 #8
-threshold = 0.05
+threshold = 0.02
 
 
 # In[8]:
@@ -168,16 +169,13 @@ for i in range(0,k):
     cluster_anom.append(c[c["is_anomaly"]==True])
     data_count.append(c.shape[0])
     anom_count.append(cluster_anom[i].shape[0])
-anom_rate = []
-for i in range(0,k):
-    anom_rate.append(anom_count[i]/data_count[i])
 detect = [False,False,False,False,False]
 TA = 0
 FA = 0
 TN = 0
 FN = 0
 for i in range(0,k):
-    if (anom_rate[i] >= threshold):
+    if (data_count[i] <= threshold*train_norm.shape[0]):
         detect[i] = True
         TA = TA + anom_count[i]
         FA = FA + (data_count[i] - anom_count[i])
@@ -185,8 +183,12 @@ for i in range(0,k):
         detect[i] = False
         TN = TN + (data_count[i] - anom_count[i])
         FN = FN + anom_count[i]
-precision = (TA)/(TA+FA)
-recall = (TA)/(TA+FN)
+if(TA == 0):
+    precision = 0
+    recall = 0
+else:
+    precision = (TA)/(TA+FA)
+    recall = (TA)/(TA+FN)
 df = pd.DataFrame({"k":k,"threshold":threshold,"TA":TA,"FA":FA,"TN":TN,"FN":FN,"precision":precision,"recall":recall}, index=[performance.shape[0]])
 performance = performance.append(df)
 
