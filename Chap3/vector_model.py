@@ -7,7 +7,7 @@
 import pandas as pd
 from functools import reduce
 import math
-import preprocessing
+from preprocessing import *
 
 
 # In[2]:

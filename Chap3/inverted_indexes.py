@@ -5,7 +5,7 @@
 
 
 import pandas as pd
-import preprocessing
+from preprocessing import *
 
 
 # In[2]:
