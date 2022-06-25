@@ -5,7 +5,7 @@
 
 
 import pandas as pd
-get_ipython().run_line_magic('run', 'preprocessing.ipynb')
+from preprocessing import *
 
 
 # In[2]:

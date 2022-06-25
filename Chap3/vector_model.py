@@ -7,7 +7,7 @@
 import pandas as pd
 from functools import reduce
 import math
-get_ipython().run_line_magic('run', 'preprocessing.ipynb')
+from preprocessing import *
 
 
 # In[2]:
