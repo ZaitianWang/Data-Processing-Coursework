@@ -7,7 +7,7 @@
 import pandas as pd
 from functools import reduce
 import math
-from preprocessing import *
+get_ipython().run_line_magic('run', 'preprocessing.ipynb')
 
 
 # In[2]:
@@ -19,7 +19,10 @@ def vect_sim(qry,doc):
     l1 = reduce(lambda x, y: x+y, list(map(lambda x, y: x*y, doc, doc)))
     l2 = reduce(lambda x, y: x+y, list(map(lambda x, y: x*y, qry, qry)))
     lower = math.sqrt(l1)*math.sqrt(l2)
-    sim = upper/lower
+    if lower==0:
+        return 0
+    else:
+        sim = upper/lower
     return sim 
 
 

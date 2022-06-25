@@ -5,7 +5,7 @@
 
 
 import pandas as pd
-from preprocessing import *
+get_ipython().run_line_magic('run', 'preprocessing.ipynb')
 
 
 # In[2]:
@@ -43,6 +43,8 @@ def get_indexes(vocab,doc_terms):
 
 def index_query_sing(qry,vocab,indexes):
     q = qry.lower().rstrip()
+    if vocab.count(q) == 0:
+        return []
     vocab_index = vocab.index(q)
     index = indexes[vocab_index] #a row of indexes
     pos = index[1] #[doc, count, [pos1, pos2...]] * n

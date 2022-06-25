@@ -5,7 +5,7 @@
 
 
 import pandas as pd
-from preprocessing import *
+get_ipython().run_line_magic('run', 'preprocessing.ipynb')
 
 
 # In[2]:
@@ -13,6 +13,8 @@ from preprocessing import *
 
 def bool_sim(qry,doc):
     #requires two [1000100...]s
+    if qry.count(1) == 0:
+        return 0
     sim = 1
     for i in range(len(qry)):
         if (qry[i] == 1) and (doc[i] == 0):
