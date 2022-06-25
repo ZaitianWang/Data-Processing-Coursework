@@ -9,3 +9,7 @@ Information Retrieval
 - Boolean Model
 - Vector Model
 - Inverted Indexes
+
+## Usage
+
+Run gui.py
