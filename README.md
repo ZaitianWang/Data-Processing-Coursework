@@ -15,3 +15,5 @@ Homework for Chap. 2, 3, and 4 of "Information Processing Technology of Internet
   - Binarization
   - Noise Addition and Reduction
   - Edge Detection
+
+Made public on July 3rd, after the homework ddl.
